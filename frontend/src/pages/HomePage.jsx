@@ -1,6 +1,10 @@
+import { useAuthStore } from "../store/useAuthStore"
 function HomePage() {
+
   return (
-    <div>HomePage</div>
+    <div>
+      <h1>Home Page</h1>
+    </div>
   )
 }
 export default HomePage
