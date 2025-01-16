@@ -4,7 +4,7 @@ const Navbar = () => {
   const { authUser, signout } = useAuthStore();
   return (
     <div>
-      <nav className="bg-red-500 text-white p-4 flex justify-between">
+      <nav className="   p-4 flex justify-between">
         <div>
           
           <h1 className="text-2xl font-bold">Logo</h1>
