@@ -1,9 +1,11 @@
 import Message from "../models/message.model.js";
 import cloudinary from "../lib/cloudinary.js";
-
+import User from "../models/user.model.js";
 export const getUsersForSidebar = async (req, res) => {
     try {
         const loggedInUserId = req.user._id;
+        console.log("loggedInUserId", loggedInUserId);
+        
         const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("fullName profilePic");
 
 

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Links } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 const Navbar = () => {
   const { authUser, signout } = useAuthStore();
@@ -6,8 +6,9 @@ const Navbar = () => {
     <div>
       <nav className="   p-4 flex justify-between">
         <div>
-          
+          <Link to="/">
           <h1 className="text-2xl font-bold">Logo</h1>
+          </Link>
         </div>
         <div>
           <ul className="flex space-x-4">
