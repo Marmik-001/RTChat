@@ -13,12 +13,11 @@ import {Toaster} from 'react-hot-toast'
 function App() {
   
   const {theme} = useThemeStore()
-  const {authUser , checkAuth , isCheckingAuth} = useAuthStore()
-
+  const {authUser , checkAuth , isCheckingAuth ,  onLineUsers} = useAuthStore()
+  console.log('app online users',onLineUsers);
   useEffect(() => {
     checkAuth()
   },[checkAuth])
-console.log(authUser);
 if(isCheckingAuth && !authUser) {
  return  <div className='flex justify-center items-center h-screen'>
     <Loader  className='size-20  animate-spin-slow '/>

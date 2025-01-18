@@ -44,7 +44,7 @@ function SettingsPage() {
       <div className="py-20 ">Preview</div>
       <div className="   p-4 border rounded-lg shadow-lg">
         <header className="flex items-center space-x-4 mb-4">
-          <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-xl font-bold">
+          <div className="h-10 w-10 rounded-full bg-base-300 flex items-center justify-center text-xl font-bold">
             J
           </div>
           <div className="text-lg font-semibold">John Doe</div>
@@ -53,7 +53,7 @@ function SettingsPage() {
           {PREVIEW_MESSAGES.map((msg) => (
             <div
               key={msg.id}
-              className={`p-2 rounded-lg ${msg.isSent ? "bg-blue-500 text-white self-end" : "bg-gray-200 text-black self-start"}`}
+              className={`p-2 rounded-lg ${msg.isSent ? "bg-base-300 text-base self-end" : "bg-base-300 text-base self-start"}`}
             >
               {msg.content}
             </div>

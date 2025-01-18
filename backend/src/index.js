@@ -5,10 +5,11 @@ import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import messageRoute from "./routes/message.route.js";
 import cors from "cors";
+import { io , app , server } from "./lib/socket.js";
 configDotenv();
 const PORT = process.env.PORT;
 
-const app = express();
+
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
@@ -21,7 +22,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoute);
 app.use("/api/message", messageRoute);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log("hello world", PORT);
   connectDB();
 });

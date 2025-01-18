@@ -1,11 +1,15 @@
 import { useEffect } from "react";
 import { useChatStore } from "../store/useChatStore"
+import {useAuthStore} from '../store/useAuthStore'
 function SideBar() {
     const { getUsers ,users , isUsersLoading , setSelectedUser  , selectedUser} = useChatStore()
-    const onLineUsers = [];
+    const { onLineUsers } = useAuthStore()
     const defaultProfilePic =
     "https://tse2.mm.bing.net/th?id=OIP.AMuITtaBEpeV3rkv96skRgHaD3&pid=Api&P=0&h=180";
 
+
+    console.log('sidebar online users: ', onLineUsers);
+    
     useEffect(() => {
         getUsers()
     } , [getUsers])
@@ -22,15 +26,16 @@ function SideBar() {
         </div>
         <div className="overflow-y-auto w-full py-3">
           {users.map((user) => (
+            
             <button 
             key={user._id}
             onClick={() => setSelectedUser(user)}
-            className={`w-full flex items-center p-3 gap-3 ${selectedUser?._id === user._id ? 'bg-base-300' : ''}`}>
-              <div>
-                <img src={user.profilePic || defaultProfilePic  } alt="" className="size-12 object-cover rounded-full" />
+            className={`w-full flex items-center p-3  gap-3 ${selectedUser?._id === user._id ? 'bg-base-300' : ''}`}>
+              <div className="relative">
+                <img src={user.profilePic || defaultProfilePic  } alt="" className="size-12  object-cover rounded-full" />
                 {
                   onLineUsers.includes(user._id) && (
-                    <span  className="absolute bottom-0 right-0 size-3 bg-green-500 rounded-full ring-2 ring-zinc-900"/>
+                    <span  className="absolute bottom-0 right-0 size-3 bg-green-500 rounded-full ring-2 ring-zinc-200"/>
                   )
                 }
               </div>

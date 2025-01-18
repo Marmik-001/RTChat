@@ -4,7 +4,6 @@ import User from "../models/user.model.js";
 export const getUsersForSidebar = async (req, res) => {
     try {
         const loggedInUserId = req.user._id;
-        console.log("loggedInUserId", loggedInUserId);
         
         const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("fullName profilePic");
 
@@ -19,13 +18,15 @@ export const getUsersForSidebar = async (req, res) => {
 
 export const getMessages = async (req, res) => {
     try {
-         const { id:reciverId } = req.params;
+         const { id } = req.params;
+         const reciverId = id;
+         
          const senderId = req.user._id; 
 
          const message = await Message.find({
             $or:[
                 {senderId: reciverId, reciverId: senderId},
-                {senderId: senderId, reciverId: userToChatId}
+                {senderId: senderId, reciverId: reciverId}
             ]
          })
          res.status(200).json(message);
