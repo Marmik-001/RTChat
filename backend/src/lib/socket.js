@@ -13,6 +13,12 @@ const io = new Server(server , {
         origin:['http://localhost:5173'],
     }
 })
+
+
+export function getReciverSocketId(userId){
+    return userSocketMap[userId]
+} 
+
 //store online users
 const userSocketMap = {} // {userId : socketId}
 
@@ -23,7 +29,6 @@ io.on('connection' , (socket) => {
         userSocketMap[userId] = socket.id
     
     //send events to all the connected clients
-    console.log('connection on socket client : ' , Object.keys(userSocketMap));
     
     io.emit('getOnlineUsers' , Object.keys(userSocketMap))
 

@@ -14,7 +14,7 @@ export const signup = async (req, res) => {
         .status(400)
         .json({ message: "Password must be atleast 6 characters long" });
     }
-    const user = await User.findOne({ email }); // Added await here
+    const user = await User.findOne({ email }); 
     if (user) return res.status(400).json({ message: "User already exists" });
 
     const salt = await bcryptjs.genSalt(10);

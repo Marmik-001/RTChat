@@ -54,7 +54,7 @@ function SignInPage() {
           </div>
           <button type="submit" className="text-lg border-2 border-black py-2 px-6 my-6 bg-black text-white disabled:bg-green-500" disabled={isSigningIn}>Sign in </button>
         </form>
-        <div>Not a user ? <Link to='/signin' className="text-blue-500"  >Sign Up</Link>  </div>
+        <div>Not a user ? <Link to='/signup' className="text-blue-500"  >Sign Up</Link>  </div>
         </div>
       </div>
       {/* Right */}

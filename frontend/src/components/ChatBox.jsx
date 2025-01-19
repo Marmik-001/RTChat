@@ -1,5 +1,5 @@
 import { useChatStore } from "../store/useChatStore";
-import { useEffect } from "react";
+import { useEffect ,useRef} from "react";
 import MessageInput from "./MessageInput";
 import ChatHeader from "./CharHeader";
 import { useAuthStore } from "../store/useAuthStore";
@@ -8,13 +8,26 @@ function ChatBox() {
   const defaultProfilePic =
     "https://tse2.mm.bing.net/th?id=OIP.AMuITtaBEpeV3rkv96skRgHaD3&pid=Api&P=0&h=180";
 
-  const { messages, getMessages, isMessageLoading, selectedUser } =
+  const { messages, getMessages, isMessageLoading, selectedUser , subscribeToMessages , unsubscribeFromMessages } =
     useChatStore();
   const { authUser } = useAuthStore();
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     getMessages(selectedUser);
-  }, [getMessages, selectedUser._id]);
+    subscribeToMessages()
+
+
+    return () => {
+      unsubscribeFromMessages()
+    }
+    
+  }, [getMessages, selectedUser._id , subscribeToMessages , unsubscribeFromMessages]);
+
+  useEffect(() => {
+    if(messagesEndRef.current && messages.length > 0) 
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  })
 
   if (isMessageLoading) {
     return <div>Loading...</div>;
@@ -30,6 +43,7 @@ function ChatBox() {
               className={`chat ${
                 message.senderId === authUser._id ? "chat-end" : "chat-start"
               }`}
+              ref={messagesEndRef}
             >
               <div className="chat-image avatar">
                 <div className="size-10 rounded-full border">

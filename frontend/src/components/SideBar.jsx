@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useEffect ,useState } from "react";
 import { useChatStore } from "../store/useChatStore"
 import {useAuthStore} from '../store/useAuthStore'
 function SideBar() {
     const { getUsers ,users , isUsersLoading , setSelectedUser  , selectedUser} = useChatStore()
     const { onLineUsers } = useAuthStore()
+    const [showOnlineUsers , setShowOnlineUsers] = useState(false)
+
+
     const defaultProfilePic =
     "https://tse2.mm.bing.net/th?id=OIP.AMuITtaBEpeV3rkv96skRgHaD3&pid=Api&P=0&h=180";
 
@@ -14,6 +17,11 @@ function SideBar() {
         getUsers()
     } , [getUsers])
 
+    const filteredUsers =  showOnlineUsers ? users.filter(user => onLineUsers.includes(user._id)) :users
+
+
+
+
     if(isUsersLoading) return ( <div>loading...</div>)
   return (
     <aside className="h-full w-20 lg:w-72 border-r border-base-200 flex flex-col transition-all duration-200">
@@ -23,9 +31,16 @@ function SideBar() {
           </div>
 
           {/* add filter */}
+          <div className="mt-3 hidden lg:flex items-center gap-2">
+            <label className="cursor-pointer flex  items-center gap-2">
+              <input type="checkbox" checked={showOnlineUsers} className="checkbox checkbox-xs" onChange={(e) => setShowOnlineUsers(e.target.checked) } />
+              <span className="text-sm">Show online Users</span>
+            </label>
+            <span className="text-xs text-zinc-500">({onLineUsers.length - 1} online)</span>
+          </div>
         </div>
         <div className="overflow-y-auto w-full py-3">
-          {users.map((user) => (
+          {filteredUsers.map((user) => (
             
             <button 
             key={user._id}
